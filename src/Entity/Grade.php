@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Controller\GradesAverageController;
+use App\Controller\GradesAverageByStudentController;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Link;
 use App\Repository\GradeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GradeRepository::class)]
+
 #[ApiResource(
     operations: [
         new getCollection(
@@ -38,7 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                 ]
             ]
         ),
-        new Post()
+        new Post(),
     ],
     normalizationContext: ["groups" => "grade:read"],
     denormalizationContext: ["groups" => "grade:write"]

@@ -18,36 +18,34 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
-#[ApiResource(
-    operations:[
-        new Get(
-            name: "student_average",
-            uriTemplate: "/students/{id}/average",
-            controller: GradesAverageByStudentController::class,
-            openapiContext: [
-                'summary' => 'Retrieves the average of a student\'s grades',
-                'responses' => [
-                    '200' => [
-                        'description' => "Success return average",
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'float',
-                                    'example' => 10.50
-                                ]
-                            ]
+#[Post(
+    denormalizationContext: ["groups" => "student:write"]
+)]
+#[Delete()]
+#[Patch(
+    denormalizationContext: ["groups" => "student:write"]
+)]
+#[Get()]
+#[Get(
+    uriTemplate: "/students/{id}/average",
+    controller: GradesAverageByStudentController::class,
+    openapiContext: [
+        'summary' => 'Retrieves the average of a student\'s grades',
+        'responses' => [
+            '200' => [
+                'description' => "Success return average",
+                'content' => [
+                    'application/json' => [
+                        'schema' => [
+                            'type' => 'float',
+                            'example' => 10.50
                         ]
                     ]
                 ]
             ]
-        ),
-        new Post(),
-        new Patch(),
-        new Delete(),
-    ],
-    normalizationContext: ["groups" => "student:read"],
-    denormalizationContext: ["groups" => "student:write"]
-)]
+        ]
+    ]
+),]
 class Student
 {
     #[ORM\Id]
