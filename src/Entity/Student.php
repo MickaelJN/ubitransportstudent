@@ -19,11 +19,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 #[Post(
-    denormalizationContext: ["groups" => "student:write"]
+    denormalizationContext: ["groups" => ["student:write"]]
 )]
 #[Delete()]
 #[Patch(
-    denormalizationContext: ["groups" => "student:write"]
+    denormalizationContext: ["groups" => ["student:write"]]
 )]
 #[Get()]
 #[Get(
